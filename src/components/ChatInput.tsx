@@ -19,7 +19,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
   return (
     <div className="flex gap-2">
       <input
-        className="flex-1 rounded border px-3 py-2 text-sm"
+        className="flex-1 rounded border px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400"
         placeholder="Ask a question..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
