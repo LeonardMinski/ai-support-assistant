@@ -16,21 +16,42 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Demo Mode
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project supports a mock AI mode for safe public deployment.
+
+- Demo mode uses a local knowledge base instead of OpenAI
+- No API key required
+- To enable real AI locally:
+  - set `USE_MOCK_AI=false`
+  - add `OPENAI_API_KEY`
+
+## Vercel Setup
+
+This app is ready for Vercel as a standard Next.js project. Vercel will auto-detect the framework and use:
+
+- Install command: `npm install`
+- Build command: `npm run build`
+- Output: managed by Next.js
+
+For a safe public demo deployment, add this environment variable in Vercel:
+
+```env
+USE_MOCK_AI=true
+```
+
+No OpenAI key is required in demo mode. To use real OpenAI responses in a private/local deployment, set:
+
+```env
+USE_MOCK_AI=false
+OPENAI_API_KEY=your_api_key_here
+```
+
+Do not commit real API keys. Keep them in `.env.local` locally or Vercel Environment Variables in production.

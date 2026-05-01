@@ -4,7 +4,6 @@ import { useState } from "react";
 import ChatInput from "./ChatInput";
 import ExampleQuestions from "./ExampleQuestions";
 import MessageBubble from "./MessageBubble";
-
 type Message = {
   role: "user" | "assistant";
   content: string;
@@ -18,18 +17,46 @@ export default function ChatBox() {
     if (!text.trim()) return;
 
     setMessages((prev) => [...prev, { role: "user", content: text }]);
-    setLoading(true);
+   setLoading(true);
 
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "assistant",
-          content: "This is a placeholder response. AI integration comes next.",
-        },
-      ]);
-      setLoading(false);
-    }, 800);
+fetch("/api/chat", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ message: text }),
+})
+  .then(async (res) => {
+    const data = await res.json();
+
+    if (!res.ok) {
+      throw new Error(data?.error || "OpenAI request failed");
+    }
+
+    return data;
+  })
+  .then((data) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        content: data.reply || "No response",
+      },
+    ]);
+  })
+  .catch(() => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        role: "assistant",
+        content:
+          "I can only answer based on the support knowledge base provided.",
+      },
+    ]);
+  })
+  .finally(() => {
+    setLoading(false);
+  });
   };
 
   return (
