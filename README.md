@@ -1,57 +1,125 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Support Assistant
 
-## Getting Started
+A small full-stack support chatbot built with Next.js. It answers common customer support questions using either OpenAI or a local mock AI mode backed by a knowledge base.
 
-First, run the development server:
+**Live demo:** https://ai-support-assistant-omega.vercel.app/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Screenshot
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+![AI Support Assistant screenshot](public/screenshot.png)
 
+## Features
 
+- Chat interface with example support questions
+- Server-side API route for AI responses
+- OpenAI integration for real AI answers
+- Demo mode fallback for public deployments without API tokens
+- Local knowledge base for safe, grounded support responses
+- Loading state and disabled input while a response is being generated
+- Clear chat button
+- Graceful fallback message when a response cannot be generated
 
+## Tech Stack
 
-
-
-
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- OpenAI Node SDK
+- Vitest
+- React Testing Library
+- Vercel
 
 ## Demo Mode
 
 This project supports a mock AI mode for safe public deployment.
 
-- Demo mode uses a local knowledge base instead of OpenAI
-- No API key required
-- To enable real AI locally:
-  - set `USE_MOCK_AI=false`
-  - add `OPENAI_API_KEY`
+When `USE_MOCK_AI=true`, the API route does not call OpenAI. It returns a conversational response using the local knowledge base instead.
 
-## Vercel Setup
+When `USE_MOCK_AI=false`, the app uses the existing OpenAI integration. If OpenAI fails, the API falls back to the local knowledge base so the demo still works.
 
-This app is ready for Vercel as a standard Next.js project. Vercel will auto-detect the framework and use:
+## Run Locally
 
-- Install command: `npm install`
-- Build command: `npm run build`
-- Output: managed by Next.js
+Install dependencies:
 
-For a safe public demo deployment, add this environment variable in Vercel:
+```bash
+npm install
+```
+
+Create a local environment file:
+
+```bash
+cp .env.example .env.local
+```
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Open http://localhost:3000 in your browser.
+
+## Environment Variables
+
+For public demo mode:
 
 ```env
 USE_MOCK_AI=true
 ```
 
-No OpenAI key is required in demo mode. To use real OpenAI responses in a private/local deployment, set:
+For real OpenAI responses:
 
 ```env
 USE_MOCK_AI=false
 OPENAI_API_KEY=your_api_key_here
 ```
 
-Do not commit real API keys. Keep them in `.env.local` locally or Vercel Environment Variables in production.
+Do not commit real API keys. Keep secrets in `.env.local` locally or in Vercel Environment Variables in production.
+
+## CI/CD
+
+The project is deployed with Vercel.
+
+- Pushes to the production branch trigger a production deployment
+- Pull requests create preview deployments
+- Vercel installs dependencies and runs `npm run build`
+- Failed builds do not replace the current live deployment
+- Environment variables are configured in the Vercel dashboard
+
+## Testing
+
+Run the test suite:
+
+```bash
+npm test
+```
+
+Run lint and production build checks:
+
+```bash
+npm run lint
+npm run build
+```
+
+## What I Learned
+
+- How to build an App Router API route for a chat workflow
+- How to keep API keys server-side and out of the browser
+- How to add a production-safe demo mode for public portfolio projects
+- How to design graceful fallbacks when a third-party API is unavailable
+- How to test basic user interaction with Vitest and React Testing Library
+
+## Future Improvements
+
+- Add more knowledge base categories
+- Improve semantic matching in demo mode
+- Add streaming responses for real OpenAI mode
+- Add richer empty, loading, and error states
+- Persist chat history locally for the current browser session
+
+## Live Demo
+https://your-app.vercel.app
+
+## Repository
+https://github.com/yourname/project

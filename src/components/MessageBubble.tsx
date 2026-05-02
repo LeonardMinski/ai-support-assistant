@@ -1,10 +1,7 @@
-type Message = {
-  role: "user" | "assistant";
-  content: string;
-};
+import type { ChatMessage } from "@/types/chat";
 
 type Props = {
-  message: Message;
+  message: ChatMessage;
 };
 
 export default function MessageBubble({ message }: Props) {

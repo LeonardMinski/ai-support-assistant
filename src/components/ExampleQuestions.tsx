@@ -1,21 +1,20 @@
+import { exampleQuestions } from "@/lib/chatConstants";
+
 type Props = {
   onSelect: (question: string) => void;
+  disabled?: boolean;
 };
 
-export default function ExampleQuestions({ onSelect }: Props) {
-  const questions = [
-    "How do I reset my password?",
-    "What is your refund policy?",
-    "How do I contact support?",
-  ];
-
+export default function ExampleQuestions({ onSelect, disabled = false }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
-      {questions.map((question) => (
+      {exampleQuestions.map((question) => (
         <button
           key={question}
           onClick={() => onSelect(question)}
-          className="rounded border px-2 py-1 text-xs hover:bg-gray-100"
+          className="rounded border px-2 py-1 text-xs hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
+          disabled={disabled}
+          type="button"
         >
           {question}
         </button>

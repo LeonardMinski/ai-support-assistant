@@ -17,7 +17,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-1 gap-2">
       <input
         className="flex-1 rounded border px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400"
         placeholder="Ask a question..."
@@ -30,6 +30,7 @@ export default function ChatInput({ onSend, disabled }: Props) {
       />
 
       <button
+        type="button"
         className="rounded bg-blue-600 px-4 text-sm text-white disabled:opacity-50"
         onClick={handleSubmit}
         disabled={disabled || !value.trim()}
